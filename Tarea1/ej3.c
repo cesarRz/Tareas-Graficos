@@ -43,6 +43,7 @@ fraccion *creafraccion(int num, int den){
     return p;
 }
 
+//https://isseu.wordpress.com/2009/08/27/funcion-reducir-fraccion-c/
 int reducir(int nominador,int denominador){
 	if(denominador==1){
 		
