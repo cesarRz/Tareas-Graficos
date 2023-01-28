@@ -84,7 +84,6 @@ coordenada *evalua(double (*funcion)(double), int a, int b){
     return lista;
 }
 
-
 // Funcion para encontrar coordenadas en lista
 bool buscaCoordenada(coordenada *lista, int x, int y) {
     coordenada *p = lista;
@@ -101,9 +100,9 @@ int real_coordinate(int n, int n_len){
     return n-n_len;
 }
 
-void dibujatabla(int x_len){
+void dibujatabla(double (*funcion)(double),int x_len){
 
-    coordenada *lista = evalua(seno,-10,10);
+    coordenada *lista = evalua(*funcion,-10,10);
 
     int y_len = 10;
     int x_real, y_real;
@@ -113,11 +112,12 @@ void dibujatabla(int x_len){
         for (int x = 0; x < x_len*2+1; x++)
         {
             x_real = real_coordinate(x,x_len);
-            y_real = real_coordinate(y,y_len);
+            y_real = real_coordinate(y,y_len) *-1;
             
             if (buscaCoordenada(lista,x_real,y_real))
             {
-                printf("%d,%d\t",x_real,y_real);
+                // printf("%d,%d\t",x_real,y_real);
+                printf("*\t");
             }
             else if (x == x_len && y == y_len)
             {
@@ -134,7 +134,7 @@ void dibujatabla(int x_len){
 
             else
             {
-                printf("*\t");
+                printf(" \t");
             }
         }
 
@@ -148,6 +148,10 @@ void dibujatabla(int x_len){
 
 int main(int argc, char const *argv[])
 {
-    dibujatabla(15);
+    printf("Grafica de Seno\n");
+    dibujatabla(seno,10);
+    printf("\n\n");
+    printf("Grafica de Coseno\n");
+    dibujatabla(coseno,10);
     return 0;
 }
