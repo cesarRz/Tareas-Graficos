@@ -67,7 +67,9 @@ void dibuja(){
     glBegin(GL_TRIANGLE_FAN);
         glColor3ub(100, 50, 200);
         glVertex2i(300 + 200,250 - 200);
+        glColor3ub(95, 204, 240);
         glVertex2i(400 + 200,250 - 200);
+        glColor3ub(90, 204, 240);
         glVertex2i(400 + 200,350 - 200);
         glColor3ub(86, 204, 240);
         glVertex2i(350 + 200,400 - 200);
