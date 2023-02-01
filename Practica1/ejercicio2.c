@@ -63,10 +63,9 @@ void dibuja()
     for (float x = (a*-1); x <= a; x+= .1)
         {
             
-            float x_escalado = (float)x* (640 / (2*a)) + 320;
+            float x_escalado = (float)x * (640 / (2*a)) + 320;
             float y = cos(x);
             float y_escalado = y * 240 + 240;
-            
             glVertex2f(x_escalado, y_escalado);
 
         }   
