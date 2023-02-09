@@ -56,9 +56,9 @@ Punto *creaPunto(int cx, int cy,float color[3], int tamanio){
 
 
 struct Punto *p = NULL;
-int puntos=0;
 int tam=4;  // tama�o inicial del punto
 GLboolean mostrar=GL_TRUE; //mostrar o no los puntos
+GLboolean edit = GL_FALSE;
 float color[3] = {1,0,0};
 
 void ajusta(int ancho, int alto) {
@@ -88,17 +88,18 @@ void raton(int boton, int estado, int x, int y){
         // p[puntos].color[0]=(rojo)?1:0;   //rojo
         // p[puntos].color[1]=0;
         // p[puntos].color[2]=(rojo)?0:1;   // azul
-        puntos++;
+        
     }
 	glutPostRedisplay();
 }
 void pageUp_Down(int tecla, int x, int y) {
     switch(tecla) {
-      case GLUT_KEY_PAGE_UP:   tam++;
+        case GLUT_KEY_PAGE_UP:   tam++;
                                break;
-      case GLUT_KEY_PAGE_DOWN: tam--;
+        case GLUT_KEY_PAGE_DOWN: tam--;
                                break;
-      case GLUT_KEY_HOME: puntos=0;
+        case GLUT_KEY_HOME: p = NULL;
+                               break;
     }
 }
 void teclado(unsigned char tecla, int x, int y){
@@ -126,7 +127,12 @@ void teclado(unsigned char tecla, int x, int y){
                 color[1] = 0.6471;
                 color[2] = 0;  //naranja
 			    break;
-        case 'm':	mostrar=!mostrar;
+        case 'm':	
+                mostrar=!mostrar;
+                break;
+        case 'e':
+                edit = (edit)?0:1;
+
     }
 }
 void dibuja(void){
@@ -138,7 +144,7 @@ void dibuja(void){
     {
         if (mostrar){
             glBegin(GL_LINE_STRIP);
-            for (i=0 ; i< puntos; i++)	{
+            while(a != NULL){
                 glColor3fv(a->color);
                 glPointSize(a->tamanio);
                     glVertex2i(a->cx, a->cy);
@@ -147,7 +153,7 @@ void dibuja(void){
             glEnd();
 
             a = p;
-            for (i=0 ; i< puntos; i++)	{
+            while(a != NULL){
                 glColor3fv(a->color);
                 glPointSize(a->tamanio);
                 glBegin(GL_POINTS);
