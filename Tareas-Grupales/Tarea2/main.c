@@ -12,6 +12,7 @@
 #endif
 
 #include "pixelart.h"
+#include "circulo.h"
 
 FILE *fp;
 
@@ -284,6 +285,9 @@ void dibuja(void)
     //dibujamos pixel art
     pixelArt(basketaball, paleta_basketball, -15, 130, 5);
     pixelArt(soccer, paleta_soccer, 80, 250, 5);
+    // Circulo
+    float col_circ[3] = {1,0,0};
+    circulo(50, 320, 350,col_circ);
     glFlush();
 }
 
