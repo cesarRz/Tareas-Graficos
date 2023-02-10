@@ -143,7 +143,7 @@ void polilineas (const char name[20]) {
     }
     fclose(fp);
     // Dibujamos el nombre
-    char n[5] = "Cesar";
+    char n[5] = "Cesar Roman";
     glRasterPos2i(550, 10);
     for(int i = 0; i < strlen(n); i++){
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, n[i]);
