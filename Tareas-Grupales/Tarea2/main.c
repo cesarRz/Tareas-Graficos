@@ -10,11 +10,12 @@
 #else
 #include <GL/glut.h>
 #endif
+
 #include "pixelart.h"
 
 FILE *fp;
 
-// Pixel Art
+// Figuras de Art
 #define ALTO 30
 #define ANCHO 30
 GLubyte paleta_basketball[6][4] = {{255,255,255,0},{255,140,0,255}, {0,0,0, 255}};
@@ -100,7 +101,6 @@ void ajusta () {
     glLoadIdentity();
     gluOrtho2D(0, 640, 0, 480);
 }
-
 
 void dibujaCoseno(){
     // Creamos el eje
