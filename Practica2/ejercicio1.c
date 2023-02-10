@@ -41,14 +41,14 @@ void agregaPunto(Punto *anterior, Punto *nuevo){
         anterior->sig = nuevo;
     }
 }
-Punto *creaPunto(int cx, int cy,float color[3], int tamanio){
+Punto *creaPunto(int cx, int cy,float clr[3], int tamanio){
     Punto *p;
     p = (Punto *)malloc(sizeof(Punto));
     p->cx = cx;
     p->cy = cy;
-    p->color[0] = color[0];
-    p->color[1] = color[1];
-    p->color[2] = color[2];
+    p->color[0] = clr[0];
+    p->color[1] = clr[1];
+    p->color[2] = clr[2];
     p->tamanio = tamanio;
     p->sig = NULL;
     return p;
@@ -60,6 +60,49 @@ int tam=4;  // tama�o inicial del punto
 GLboolean mostrar=GL_TRUE; //mostrar o no los puntos
 GLboolean edit = GL_FALSE;
 float color[3] = {1,0,0};
+char tecla_global;
+
+void cambiaColor(float clr[3]){
+
+    if (edit)
+    {
+        Punto *a = ultimaPunto(p);
+        a->color[0] = clr[0];
+        a->color[1] = clr[1];
+        a->color[2] = clr[2];
+    }else{
+        color[0] = clr[0];
+        color[1] = clr[1];
+        color[2] = clr[2];
+    }
+    glutPostRedisplay();
+
+    
+}
+
+void aumentaTam(){
+
+    if (edit)
+    {
+        Punto *a = ultimaPunto(p);
+        a->tamanio ++;
+    }else{
+        tam++;
+    }
+    glutPostRedisplay();
+}
+
+void reduceTam(){
+
+    if (edit)
+    {
+        Punto *a = ultimaPunto(p);
+        a->tamanio --;
+    }else{
+        tam--;
+    }
+    glutPostRedisplay();
+}
 
 void ajusta(int ancho, int alto) {
     glClearColor(1.0,1.0,1.0,0.0);
@@ -94,46 +137,53 @@ void raton(int boton, int estado, int x, int y){
 }
 void pageUp_Down(int tecla, int x, int y) {
     switch(tecla) {
-        case GLUT_KEY_PAGE_UP:   tam++;
+        case GLUT_KEY_PAGE_UP:   aumentaTam();
                                break;
-        case GLUT_KEY_PAGE_DOWN: tam--;
+        case GLUT_KEY_PAGE_DOWN: reduceTam();
                                break;
         case GLUT_KEY_HOME: p = NULL;
                                break;
     }
 }
+
 void teclado(unsigned char tecla, int x, int y){
+    float clr_temp[3];
     switch(tecla) {
         case 27:	
             exit(0);		// Esc =>Salir del programa
             break;
         case 'r':
-                color[0] = 1;
-                color[1] = 0;
-                color[2] = 0;  //rojo
-			    break;
-        case 'b':	
-                color[0] = 0;
-                color[1] = 0;
-                color[2] = 1;  //azul
-			    break;
-        case 'g':	
-                color[0] = 0;
-                color[1] = 1;
-                color[2] = 0;  //verde
-			    break;
-        case 'o':	
-                color[0] = 1;
-                color[1] = 0.6471;
-                color[2] = 0;  //naranja
-			    break;
+            clr_temp[0] = 1;
+            clr_temp[1] = 0;
+            clr_temp[2] = 0; 
+            cambiaColor(clr_temp);
+		    break;
+        case 'b':
+            clr_temp[0] = 0;
+            clr_temp[1] = 0;
+            clr_temp[2] = 1;  //azul
+            cambiaColor(clr_temp);
+			break;
+        case 'g':
+            clr_temp[0] = 0;
+            clr_temp[1] = 1;
+            clr_temp[2] = 0;  //verde
+            cambiaColor(clr_temp);
+            break;
+        case 'o':
+            clr_temp[0] = 1;
+            clr_temp[1] = 0.6471;
+            clr_temp[2] = 0;  //naranja
+            cambiaColor(clr_temp);
+            break;
         case 'm':	
-                mostrar=!mostrar;
-                break;
+            mostrar=!mostrar;                
+            break;
         case 'e':
-                edit = (edit)?0:1;
+            edit = (edit)?GL_FALSE:GL_TRUE;
 
     }
+
 }
 void dibuja(void){
 	int i;
