@@ -101,30 +101,6 @@ void ajusta () {
     gluOrtho2D(0, 640, 0, 480);
 }
 
-void pixelArt(){
-    glBegin(GL_QUADS);
-    // Draw the roof
-    glColor3f(1.0, 0.0, 0.0);  // Set color to red
-    glVertex2f(100, 300);
-    glVertex2f(540, 300);
-    glVertex2f(320, 400);
-    glVertex2f(220, 400);
-
-    // Draw the house
-    glColor3f(0.0, 1.0, 0.0);  // Set color to green
-    glVertex2f(100, 100);
-    glVertex2f(540, 100);
-    glVertex2f(540, 300);
-    glVertex2f(100, 300);
-
-    // Draw the door
-    glColor3f(0.0, 0.0, 1.0);  // Set color to blue
-    glVertex2f(200, 100);
-    glVertex2f(240, 100);
-    glVertex2f(240, 160);
-    glVertex2f(200, 160);
-  glEnd();
-}
 
 void dibujaCoseno(){
     // Creamos el eje
@@ -306,8 +282,8 @@ void dibuja(void)
     // Dibujamos estrella
     curva();
     //dibujamos pixel art
-    pixelartPar(basketaball, paleta_basketball, -15, 130, 5);
-    pixelartPar(soccer, paleta_soccer, 80, 250, 5);
+    pixelArt(basketaball, paleta_basketball, -15, 130, 5);
+    pixelArt(soccer, paleta_soccer, 80, 250, 5);
     glFlush();
 }
 

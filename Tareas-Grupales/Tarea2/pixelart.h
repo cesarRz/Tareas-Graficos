@@ -16,7 +16,7 @@
 #define ANCHO 30
 
 
-void pixelartPar(GLubyte girasol[ALTO][ANCHO], GLubyte paleta1[][4],int base_x, int base_y, int tam ){
+void pixelArt(GLubyte girasol[ALTO][ANCHO], GLubyte paleta1[][4],int base_x, int base_y, int tam ){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
