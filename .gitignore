@@ -6,3 +6,10 @@
 
 # Unignore all dirs
 !*/
+
+
+*.dSYM
+
+.vscode
+
+.DS_Store
