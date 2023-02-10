@@ -56,7 +56,9 @@ void ajusta(int ancho, int alto)
 }
 void dibuja(void)
 {
-    int tam = 20; // tamaño del punto
+    int base_x = 20;
+    int base_y = 500;
+    int tam = 5; // tamaño del punto
     glClear(GL_COLOR_BUFFER_BIT);
     glPointSize(tam);
     glBegin(GL_POINTS);
@@ -64,7 +66,7 @@ void dibuja(void)
         for (int j = 0; j < ANCHO; j++)
         {
             glColor3ubv(paleta1[girasol[i][j]]);
-            glVertex2i(20 + j * tam, 500 - i * tam);
+            glVertex2i(base_x + j * tam, base_y - i * tam);
         }
     glEnd();
     glFlush();
