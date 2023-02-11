@@ -280,6 +280,7 @@ void dibuja(void)
     dibujaCoseno();
     //Dibujamos polilineas
     polilineas("polilineas.dat");
+    polilineas("doggo.dat");
     // Dibujamos estrella
     curva();
     //dibujamos pixel art
