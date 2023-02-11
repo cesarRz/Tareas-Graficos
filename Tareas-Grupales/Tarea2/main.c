@@ -125,7 +125,7 @@ void dibujaCoseno(){
     glEnd();
 }
 
-void polilineas (const char name[20]) {
+void polilineas (const char name[20], const char name2[20] ) {
     glColor3f(1.0, 0.5, 0.3);
     glLineWidth(2);
     unsigned short numLineas, vertices;
@@ -165,10 +165,10 @@ void polilineas (const char name[20]) {
     glLineWidth(2);
     numLineas = 0;
     vertices = 0;
-    fp = fopen(name, "r");
+    fp = fopen(name2, "r");
     if (fp == NULL)
     {
-        // printf("\nError al intentar abrir el archivo %s\n", name);
+        // printf("\nError al intentar abrir el archivo %s\n", 2);
         exit(1); 
     }
 
@@ -183,7 +183,7 @@ void polilineas (const char name[20]) {
             {
                 fscanf(fp, "%f %f", &x, &y);
                 // printf("(%.3f, %.3f) ", x, -y);
-                glVertex2i(x + 430, 225 - y);
+                glVertex2i(x + 450, 10 - y);
             }
         glEnd();
     }
@@ -279,8 +279,7 @@ void dibuja(void)
     // Dibujamos coseno
     dibujaCoseno();
     //Dibujamos polilineas
-    polilineas("polilineas.dat");
-    polilineas("doggo.dat");
+    polilineas("polilineas.dat", "doggo.dat");
     // Dibujamos estrella
     curva();
     //dibujamos pixel art
