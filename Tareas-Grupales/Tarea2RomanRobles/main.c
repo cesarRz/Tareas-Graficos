@@ -160,7 +160,7 @@ void polilineas (const char name[20], const char name2[20] ) {
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, c[i]);
     }
 
-    // Pixel art Cesar
+    // Polilineas Cesar
     glColor3f(0.0, 0.5, 0.8);
     glLineWidth(2);
     numLineas = 0;
