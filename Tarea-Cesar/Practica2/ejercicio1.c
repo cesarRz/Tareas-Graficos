@@ -116,22 +116,12 @@ void raton(int boton, int estado, int x, int y){
 
     if(boton == GLUT_LEFT_BUTTON && estado == GLUT_DOWN)    {
 
-        // float clr[3] = {(rojo)?1:0,0,(rojo)?0:1};
-
         nuevo = creaPunto(x, alto_ventana-y, color, tam);
         
         if (p == NULL){
                 p = nuevo;
         }
         agregaPunto(ultimaPunto(p), nuevo);
-
-        // p[puntos].cx = x;
-        // p[puntos].cy = alto_ventana - y;
-        // p[puntos].tamanio = tam;
-        // p[puntos].color[0]=(rojo)?1:0;   //rojo
-        // p[puntos].color[1]=0;
-        // p[puntos].color[2]=(rojo)?0:1;   // azul
-        
     }
 	glutPostRedisplay();
 }
