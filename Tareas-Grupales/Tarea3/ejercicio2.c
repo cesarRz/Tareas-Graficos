@@ -26,24 +26,18 @@ int point_in_polygon(int point_x, int point_y, int poly_x[], int poly_y[], int n
         int x1 = poly_x[i];
         int y1 = poly_y[i];
         int x2 = poly_x[(i+1)%n];
-        int y2 = poly_y[(i+1)%n];
-        if (point_y > fmin(y1, y2))
-        {
-            if (point_y <= fmax(y1, y2))
-            {
-                if (point_x <= fmax(x1, x2))
+        int y2 = poly_y[(i+1)%n];     
+
+        if( point_y > fmin(y1, y2) && point_y <= fmax(y1, y2) &&  point_x <= fmax(x1, x2) && y1 != y2 ) {
+            
+            float x_intersection = (point_y-y1)*(x2-x1)/(y2-y1)+x1;
+                if (x1 == x2 || point_x <= x_intersection)
                 {
-                    if (y1 != y2)
-                    {
-                        float x_intersection = (point_y-y1)*(x2-x1)/(y2-y1)+x1;
-                        if (x1 == x2 || point_x <= x_intersection)
-                        {
-                            num_intersections++;
-                        }
-                    }
+                    num_intersections++;
                 }
-            }
         }
+
+        
     }
     return num_intersections % 2 == 1;
 }
