@@ -10,7 +10,7 @@ double funcionImp(double x, double y){
 
 int main()
 {
-    double puntos = 10000000, puntosDentro = 0;
+    double puntos = 100000, puntosDentro = 0;
     double max = 1, min = 0, randNum = 0, x, y, pi;
     srand(time(NULL));
     randNum = (double)rand()/RAND_MAX * (max - min) + min;
@@ -18,7 +18,6 @@ int main()
     {
         x = (double)rand()/RAND_MAX * (max - min) + min;
         y = (double)rand()/RAND_MAX * (max - min) + min;
-        // printf("\nx: %f y: %f", x, y);
         if (funcionImp(x, y) <= 1.0)
         {
             puntosDentro++;
