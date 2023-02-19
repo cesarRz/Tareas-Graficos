@@ -11,10 +11,25 @@
 #include <stdio.h>
 #include <math.h>
 
+double n = 10000;
 
-char texto[]= "PI:";
 
-int n = 10000;
+void teclado(unsigned char tecla, int x, int y){
+    switch(tecla) {
+        case 27:	
+            exit(0);		// Esc =>Salir del programa
+            break;
+        case 43:
+            n += 10000;
+            glutPostRedisplay();
+            break;
+        case 45:
+            n -= 10000;
+            glutPostRedisplay();
+            break;
+        
+    }
+}
 
 int aleatorio(int min, int max) {
     int random_number = (rand() % (max - min + 1)) + min;
@@ -101,8 +116,8 @@ void dibuja(){
     int x_centro = 480 / 2;
     int y_centro = 480 / 2;
     int radio = 240;
-    int puntos_dentro = 0;
-    
+    double puntos_dentro = 0;
+    double pi = 0;
 
     for (int i = 0; i < n; i++)
     {
@@ -130,10 +145,10 @@ void dibuja(){
     }
 
     glColor3ub(0,0,0);
-    double pi = 4*(puntos_dentro/n);
+    pi = 4*(puntos_dentro/n);
 
     char pi_char[20];
-    // sprintf(pi_char,"PI = %f", pi);
+    sprintf(pi_char,"PI = %f", pi);
 
     printtext(pi_char);
 
@@ -152,6 +167,7 @@ int main(int argc, char** argv)
     glutCreateWindow("Titulo");
     glutReshapeFunc(ajusta);
     glutDisplayFunc(dibuja);
+    glutKeyboardFunc(teclado);
     glutMainLoop();
     return 0;
 }
