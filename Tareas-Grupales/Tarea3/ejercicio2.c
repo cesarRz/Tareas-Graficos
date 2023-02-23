@@ -71,6 +71,12 @@ void teclado(unsigned char tecla, int x, int y)
 {
     if (tecla == 27)
         exit(0); // Esc =>Salir del programa
+    else if (tecla == 127)
+    {
+         if (!fin)
+            delete_last();
+    }
+    
 }
 
 bool ccw(int a, int b, int c)
@@ -108,9 +114,6 @@ void dibuja(void)
     for (i = 0; i < puntos; i++)
         glVertex2i(pos_x[i], pos_y[i]);
     glEnd();
-
-
-    
 
     // Dibuja puntos extras
         glBegin(GL_POINTS);
