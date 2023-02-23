@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 
-double n = 10000;
+double n = 100000;
 
 
 void teclado(unsigned char tecla, int x, int y){
@@ -20,11 +20,11 @@ void teclado(unsigned char tecla, int x, int y){
             exit(0);		// Esc =>Salir del programa
             break;
         case 43:
-            n += 10000;
+            n += 20000;
             glutPostRedisplay();
             break;
         case 45:
-            n -= 10000;
+            n -= 20000;
             glutPostRedisplay();
             break;
         
@@ -36,8 +36,8 @@ int aleatorio(int min, int max) {
     return random_number;
 }
 
-void printtext(char c[]){
-    glRasterPos2i(500, 240);
+void printtext(char c[20], int x, int y ){
+    glRasterPos2i(x,y);
     for(int i = 0; i < strlen(c); i++){
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, c[i]);
     }
@@ -106,7 +106,6 @@ void base_ejercicio(){
     Bresenham(240, 240, 240);
 }
 
-
 void dibuja(){
     glClear(GL_COLOR_BUFFER_BIT);
     glPointSize(3);
@@ -150,8 +149,14 @@ void dibuja(){
     char pi_char[20];
     sprintf(pi_char,"PI = %f", pi);
 
-    printtext(pi_char);
+    printtext(pi_char, 500, 240);
 
+
+    char puntos_char[20];
+    double puntos = n;
+    sprintf(puntos_char,"Puntos = %.0f", puntos);
+
+    printtext(puntos_char, 500, 230);
     
     glFlush();
 }
