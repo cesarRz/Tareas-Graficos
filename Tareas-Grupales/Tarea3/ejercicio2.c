@@ -9,8 +9,7 @@
 #include <math.h>
 
 
-int puntos_fin[60][2];
-int index_fin = 0;
+int puntos_fin[2];
 int pos_x[60], pos_y[60];
 int puntos = 0;
 GLboolean fin = GL_FALSE;
@@ -31,9 +30,8 @@ void raton(int boton, int estado, int x, int y)
         {
             if (fin)
             { 
-                puntos_fin[index_fin][0] = x;
-                puntos_fin[index_fin][1] = alto_ventana - y;
-                index_fin++;
+                puntos_fin[0] = x;
+                puntos_fin[1] = alto_ventana - y;
 
             }else{
                 pos_x[puntos] = x;
@@ -61,7 +59,6 @@ void termina(int tecla, int x, int y)
         break;
     case GLUT_KEY_DOWN:
         puntos = 0;
-        index_fin = 0;
         fin = GL_FALSE;
         break;
     case GLUT_KEY_LEFT:
@@ -78,15 +75,15 @@ void teclado(unsigned char tecla, int x, int y)
 
 bool ccw(int a, int b, int c)
 {
+    if (fin)
+    {
+        double area2 = (pos_x[b] - pos_x[a]) * (puntos_fin[1] - pos_y[a]) - (pos_y[b] - pos_y[a]) * (puntos_fin[0] - pos_x[a]);
+        return area2 >= 0;
+    }else
+    {
         double area2 = (pos_x[b] - pos_x[a]) * (pos_y[c] - pos_y[a]) - (pos_y[b] - pos_y[a]) * (pos_x[c] - pos_x[a]);
         return area2 >= 0;
-    
-}
-
-bool ccw_fin(int a, int b, int c)
-{
-        double area2 = (pos_x[b] - pos_x[a]) * (puntos_fin[c][1] - pos_y[a]) - (pos_y[b] - pos_y[a]) * (puntos_fin[c][0] - pos_x[a]);
-        return area2 >= 0;
+    }
     
 }
     
@@ -117,24 +114,17 @@ void dibuja(void)
 
     // Dibuja puntos extras
         glBegin(GL_POINTS);
-    if (index_fin != 0){
-        for (i = 0; i < index_fin; i++){
-            GLboolean dentro = GL_TRUE;
-            for (size_t j = 0; j < puntos; j++)
-            {
-                if(!ccw_fin(j,j+1,i))
-                    dentro = GL_FALSE;
-            }
-
-            if (dentro)
-            {
-                glColor3ub(0,255,0);
-            }else{
-                glColor3ub(255,0,0);
-            }
+    if (fin){
             
-            glVertex2i(puntos_fin[i][0], puntos_fin[i][1]);
+        if (puntos > 2)
+        {
+            i = 0;
+            while (ccw(i % puntos, (i + 1) % puntos, (i + 2) % puntos) && i < puntos + 2)
+                i++;
+            (i == puntos + 2) ? glColor3f(0, 1, 0) : glColor3f(1, 0, 0);
         }
+            
+        glVertex2i(puntos_fin[0], puntos_fin[1]);
     }
         glEnd();
 
