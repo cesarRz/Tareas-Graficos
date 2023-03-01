@@ -147,7 +147,7 @@ void dibuja(){
     pi = 4*(puntos_dentro/n);
 
     char pi_char[20];
-    sprintf(pi_char,"PI = %f", pi);
+    sprintf(pi_char,"PI = %.5f", pi);
 
     printtext(pi_char, 500, 240);
 
