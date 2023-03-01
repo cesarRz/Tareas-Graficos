@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-void imprime(int r, int c, int m[][c]) {
+void imprime(int r, int c, float m[][c]) {
     for (int i = 0; i < r; i++)
     {
         for (int j = 0; j < c; j++)
         {
-            printf("%.2d\t", m[i][j]);
+            printf("%.2f\t", m[i][j]);
         }
         printf("\n");
     }
@@ -23,7 +23,7 @@ void suma (int r, int c, float m1[][c], float m2[][c]) {
     }
 }
 
-void multiplica(int m, int n, int q, int m1[][q], int m2[][m], int mr[][m])
+void multiplica(int m, int n, int q, float m1[][q], float m2[][m], float mr[][m])
 {
     for (int a = 0; a < m; a++)
     {

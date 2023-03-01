@@ -12,9 +12,9 @@
 #include "matriz.h"
 
 int tamano_lateral = 100;
-int coordenadas[4][2];
+float coordenadas[4][2];
 
-void assign_escalamiento(float x, float y, int m[3][3]) // crea la matriz de escalamiento
+void assign_escalamiento(float x, float y, float m[3][3]) // crea la matriz de escalamiento
 {
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
@@ -35,17 +35,17 @@ void assign_base(int base_x, int base_y){
     coordenadas[0][1] = base_y;
     coordenadas[1][0] = base_x + tamano_lateral;
     coordenadas[1][1] = base_y;
-    coordenadas[2][0] = (int)((tamano_lateral * 0.2) + base_x + tamano_lateral);
-    coordenadas[2][1] = (int)(base_y + (tamano_lateral / 2));
-    coordenadas[3][0] = (int)((tamano_lateral * 0.2) + base_x);
-    coordenadas[3][1] = (int)(base_y + (tamano_lateral / 2));
+    coordenadas[2][0] = ((tamano_lateral * 0.2) + base_x + tamano_lateral);
+    coordenadas[2][1] = (base_y + (tamano_lateral / 2));
+    coordenadas[3][0] = ((tamano_lateral * 0.2) + base_x);
+    coordenadas[3][1] = (base_y + (tamano_lateral / 2));
 }
 
-int Traslacion[3][3];
-int Rotacion[3][3];
-int Escalamiento[3][3];
+float Traslacion[3][3];
+float Rotacion[3][3];
+float Escalamiento[3][3];
 
-void creaT(double dx, double dy) {
+void creaT(float dx, float dy) {
 
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
@@ -92,8 +92,8 @@ void mueve_y(){
             coordenadas[i][0] = -coordenadas[i][0];
 
     creaT(400,0);
-    int mr[4][1];
-    int m[1][3];
+    float mr[4][1];
+    float m[1][3];
     for (int i = 0; i < 4; i++)
     {
         m[0][0] = coordenadas[i][0];
@@ -119,8 +119,8 @@ void mueve_x(){
     imprime(3,3,Traslacion);
 
     // Multiplica matrices
-    int mr[4][1];
-    int m[1][3];
+    float mr[4][1];
+    float m[1][3];
     for (int i = 0; i < 4; i++)
     {
         m[0][0] = coordenadas[i][0];
