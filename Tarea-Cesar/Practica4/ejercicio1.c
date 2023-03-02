@@ -30,7 +30,6 @@ void assign_base(int base_x, int base_y){
 }
 
 float Traslacion[3][3];
-float Rotacion[3][3];
 float Escalamiento[3][3];
 
 void creaT(float dx, float dy) {
