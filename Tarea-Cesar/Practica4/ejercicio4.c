@@ -103,7 +103,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowSize(640, 480);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Pinzas");
+    glutCreateWindow("Ejercicio 4");
     glutDisplayFunc(dibuja);
     glutReshapeFunc(ajusta);
     glutSpecialFunc(teclado_especial);

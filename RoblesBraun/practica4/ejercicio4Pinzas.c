@@ -85,6 +85,7 @@ void dibuja(void)
                 glScalef(0.25, 3, 0.7);
                 glutSolidCube(1);
             glPopMatrix();
+            
             glColor3f(0, 1 ,0);
             glPushMatrix(); //Segunda parte de la pinza
                 glTranslatef(-0.2, -1.5, 0);
