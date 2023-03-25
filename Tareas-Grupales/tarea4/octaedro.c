@@ -1,4 +1,3 @@
-
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
     #include <stdio.h>
@@ -16,6 +15,7 @@
 
 int angle = 0;
 int angulo_deseado = 60;
+GLboolean abriendo = GL_TRUE;
 
 GLboolean animate = GL_FALSE;
 GLboolean building = GL_TRUE;
@@ -121,6 +121,24 @@ void triangulo(int direccion, bool eje){
 
 }
 
+void cierra(){
+    if (angle == angulo_deseado){
+        abriendo = GL_FALSE;
+    }else if (angle == 0){
+        abriendo = GL_TRUE;
+    }
+
+    if (abriendo)
+    {
+        angle+= 10;
+    }else
+    {
+        angle -= 10;
+    }
+    
+    
+    
+}
 
 
 void dibuja(void)
@@ -211,6 +229,7 @@ void teclado(unsigned char key, int x, int y) {
     case 27:  exit (0);
     case '+': zoom ++; break;
     case '-': zoom --; break;
+    case 'c':  cierra(); break;
     default: break;
   }
   glutPostRedisplay();
