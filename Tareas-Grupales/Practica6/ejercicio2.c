@@ -23,7 +23,7 @@ GLUquadricObj *cilindro;
 GLfloat  girax = 0, giray= 0, zoom=0;
 GLboolean malla = GL_FALSE, ejes = GL_TRUE;
 
-GLfloat paleta[4][4] = {{0.75, 0.75, 0.75, 0.6},
+GLfloat paleta[4][4] = {{0.75, 0.75, 0.75, 1},
                       {1, 0, 0, 0.6},
                       {1, 1, 0, 0.6},
                       {0, 1, 0, 0.6}};
@@ -55,7 +55,6 @@ void creaMalla(int long_eje) {
       }
     glEnd();
 }
-
 
 void animaT(int v){
 
@@ -159,12 +158,21 @@ void animaT(int v){
 
 void dibuja_circulo(GLfloat base_x, GLfloat base_y, GLfloat color[4]){
 
+
+
     glPushMatrix();
         glMaterialfv(GL_FRONT, GL_AMBIENT, color);
         glMaterialfv(GL_FRONT, GL_DIFFUSE, color);
         glMaterialfv(GL_FRONT, GL_SPECULAR, color);
-        glMaterialfv(GL_FRONT, GL_SHININESS, color);
-        glMaterialfv(GL_FRONT, GL_EMISSION, color);
+
+        if (color == paleta[3])
+        {
+            GLfloat emision_verde[] = {0,1,0,1};
+            
+            glMaterialfv(GL_FRONT, GL_EMISSION, emision_verde);
+            glMaterialfv(GL_FRONT, GL_SHININESS, 50);
+        }
+        
 
         glTranslatef(base_x, base_y,-2.5);
         glScalef(0.1,0.06,0.2);
@@ -177,10 +185,11 @@ void dibuja_cubo(){
     glPushMatrix();
         glScalef(1, 2, -0.5);
 
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_difuso);
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, no_mat);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS,0);
-        glMaterialfv(GL_FRONT, GL_EMISSION, ceros);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambiente);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_difuso);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_especular);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_brillo);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, ceros);
 
         glutSolidCube(5);
 
@@ -243,7 +252,7 @@ void ajusta(int ancho, int alto) {
     gluPerspective(45,1,10,100);
     zoom= -40;
 
-    GLfloat PosDireccional[]={0.0, 0.0, -8.0, 0.0};   
+    GLfloat PosDireccional[]={0.0, 3.0, -3.0, 0.0};   
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glLightfv(GL_LIGHT0, GL_POSITION, PosDireccional);
