@@ -17,13 +17,6 @@ GLUquadricObj *cilindro;
 GLfloat girax = 0, giray = 0, zoom = 0;
 GLboolean malla = GL_FALSE, ejes = GL_TRUE;
 
-int paleta[4][4] = {{192, 192, 192, 255}, {255, 0, 0, 255}, {255, 255, 0, 255}, {0, 255, 0, 255}};
-int color_rojo[4] = {192, 192, 192, 255};
-int color_verde[4] = {192, 192, 192, 255};
-int color_amarillo[4] = {192, 192, 192, 255};
-
-int foco = 0;
-
 //   Rotacion XY y Zoom
 void mover(void)
 {
@@ -72,208 +65,129 @@ void creaEjes(void)
     glEnd();
 }
 
-void animaT(int v)
-{
-
-    switch (foco)
-    {
-    case 0:
-        color_amarillo[0] = paleta[0][0];
-        color_amarillo[1] = paleta[0][1];
-        color_amarillo[2] = paleta[0][2];
-        color_amarillo[3] = paleta[0][3];
-
-        color_rojo[0] = paleta[1][0];
-        color_rojo[1] = paleta[1][1];
-        color_rojo[2] = paleta[1][2];
-        color_rojo[3] = paleta[1][3];
-        glutTimerFunc(2000, animaT, 0);
-        foco++;
-        break;
-    case 1:
-        color_rojo[0] = paleta[0][0];
-        color_rojo[1] = paleta[0][1];
-        color_rojo[2] = paleta[0][2];
-        color_rojo[3] = paleta[0][3];
-
-        color_verde[0] = paleta[3][0];
-        color_verde[1] = paleta[3][1];
-        color_verde[2] = paleta[3][2];
-        color_verde[3] = paleta[3][3];
-
-        glutTimerFunc(2000, animaT, 0);
-        glutPostRedisplay();
-
-        foco++;
-        break;
-
-    case 2:
-        color_verde[0] = paleta[0][0];
-        color_verde[1] = paleta[0][1];
-        color_verde[2] = paleta[0][2];
-        color_verde[3] = paleta[0][3];
-
-        glutTimerFunc(500, animaT, 0);
-
-        foco++;
-        break;
-    case 3:
-        color_verde[0] = paleta[3][0];
-        color_verde[1] = paleta[3][1];
-        color_verde[2] = paleta[3][2];
-        color_verde[3] = paleta[3][3];
-
-        glutTimerFunc(500, animaT, 0);
-
-        foco++;
-        break;
-
-    case 4:
-        color_verde[0] = paleta[0][0];
-        color_verde[1] = paleta[0][1];
-        color_verde[2] = paleta[0][2];
-        color_verde[3] = paleta[0][3];
-
-        glutTimerFunc(500, animaT, 0);
-
-        foco++;
-        break;
-
-    case 5:
-        color_verde[0] = paleta[3][0];
-        color_verde[1] = paleta[3][1];
-        color_verde[2] = paleta[3][2];
-        color_verde[3] = paleta[3][3];
-
-        glutTimerFunc(500, animaT, 0);
-
-        foco++;
-        break;
-    case 6:
-        foco = 0;
-
-        color_verde[0] = paleta[0][0];
-        color_verde[1] = paleta[0][1];
-        color_verde[2] = paleta[0][2];
-        color_verde[3] = paleta[0][3];
-
-        color_amarillo[0] = paleta[2][0];
-        color_amarillo[1] = paleta[2][1];
-        color_amarillo[2] = paleta[2][2];
-        color_amarillo[3] = paleta[2][3];
-
-        glutTimerFunc(1000, animaT, 0);
-
-        break;
-
-    default:
-        break;
-    }
-
-    glutPostRedisplay();
-}
-
-void dibuja_circulo(GLfloat base_x, GLfloat base_y, int color[4])
-{
-
-    glColor4ub(color[0], color[1], color[2], color[3]);
-
-    glPushMatrix();
-    glTranslatef(base_x, base_y, -2.5);
-    glScalef(0.1, 0.06, 0.2);
-    glutSolidSphere(10, 200, 200);
-    glPopMatrix();
-}
-
-void dibuja_cubo()
-{
-    glColor3ub(255, 172, 51);
-    glPushMatrix();
-    mover();
-    glScalef(1, 2, -0.5);
-    glutSolidCube(5);
-    dibuja_circulo(0, 1.5, color_rojo);
-    dibuja_circulo(0, 0, color_amarillo);
-    dibuja_circulo(0, -1.5, color_verde);
-    glPopMatrix();
-}
 
 void dibuja(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPushMatrix();
-    GLUquadricObj *quadratic;
-    quadratic = gluNewQuadric();
+        GLUquadricObj *quadratic;
+        quadratic = gluNewQuadric();
 
-    mover();
-    if (malla) creaMalla(10);    
-    if (ejes) creaEjes();
-        
+        mover();
+        if (malla) creaMalla(10);    
+        if (ejes) creaEjes();
 
-    // Tubo base con dos discos de tapa
-    // glPushMatrix();
-    glTranslatef(0, 11, 0);
-    glRotatef(90.0, 1, 0, 0);
-    gluQuadricDrawStyle(quadratic, GLU_FILL); // Set the drawing style to GLU_FILL
-    gluCylinder(quadratic, 0.5, 0.5, 11, 10, 10);
-    gluDisk(quadratic, 0, 0.5, 10, 1); // Draw a disk at the bottom of the cylinder
-    glTranslatef(0, 0, 8); // Move to the top of the cylinder
-    gluDisk(quadratic, 0, 0.5, 10, 1); // Draw a disk at the top of the cylinder
-    // glPopMatrix();
-
-    // Tubos pequeños de abajo
-        // Tubo derecho
+        // Tubo base con dos discos de tapa
         glPushMatrix();
-            glTranslatef(0, 0, -5);
-            glRotatef(135.0, 0, 1, 0);
-            gluCylinder(quadratic, 0.15, 0.15, 4, 10, 10);
-        glPopMatrix();
-        
-        // Tubo izquierdo
-        glPushMatrix();
-            glTranslatef(0, 0, -5);
-            glRotatef(-135.0, 1, 0, 0);
-            gluCylinder(quadratic, 0.15, 0.15, 4, 10, 10);
+            glColor4ub(0,0,0,255);
+            glTranslatef(0, 11, 0);
+            glRotatef(90.0, 1, 0, 0);
+            gluCylinder(quadratic, 0.5, 0.5, 11, 10, 10);
+            gluDisk(quadratic, 0, 0.5, 10, 1); 
+            glTranslatef(0, 0, 8); 
+            gluDisk(quadratic, 0, 0.5, 10, 1);
         glPopMatrix();
 
-    // Tubos horizontales
+        // Tubos pequeños de abajo
+            // Tubo derecho
+            glPushMatrix();
+                glTranslatef(0, 8, 0);
+                glRotatef(-45.0, 1, 0, 0);
+                gluCylinder(quadratic, 0.15, 0.15, 4, 10, 10);
+            glPopMatrix();
+            
+            // Tubo izquierdo
+            glPushMatrix();
+                glTranslatef(0, 8, 0);
+                glRotatef(90.0, 0, 1, 0);
+                glRotatef(-45.0, 1, 0, 0);
+                gluCylinder(quadratic, 0.15, 0.15, 4, 10, 10);
+            glPopMatrix();
 
-        // Tubo izquierdo
+        // Tubos horizontales
+
+            // Tubo izquierdo
+            glPushMatrix();
+                glTranslatef(0,10.9, 0);
+                gluCylinder(quadratic, 0.25, 0.25, 4.5, 10, 10);
+            glPopMatrix();
+            
+            // Tubo derecho
+            glPushMatrix();
+                glTranslatef(0,10.9, 0);
+                glRotatef(90.0, 0, 1, 0);
+                gluCylinder(quadratic, 0.25, 0.25, 4.5, 10, 10);
+            glPopMatrix();
+
+        // Tubos Superiores
+
+            // Tubo izquierdo
+            glPushMatrix();
+                glTranslatef(0,10.9, 0);
+                glRotatef(40.0, -1, 0, 0);
+                gluCylinder(quadratic, 0.25, 0.25, 6, 10, 10);
+            glPopMatrix();
+            
+            // Tubo derecho
+            glPushMatrix();
+                glTranslatef(0,10.9, 0);
+                glRotatef(90.0, 0, 1, 0);
+                glRotatef(40.0, -1, 0, 0);
+                gluCylinder(quadratic, 0.25, 0.25, 6, 10, 10);
+            glPopMatrix();
+
+
+        // Tablero 
         glPushMatrix();
-            glTranslatef(0, 0, -7.7);
-            glRotatef(90.0, -1, 0, 0);
-            gluCylinder(quadratic, 0.25, 0.25, 4.5, 10, 10);
+            glColor4ub(0,0,0,90);
+                glTranslatef(2.3,13,2.3);
+                glRotated(45,0,1,0);
+                glScaled(10,5,0.35);
+                glutSolidCube(1);
         glPopMatrix();
-        
-        // Tubo derecho
+
+        // Cuadro
         glPushMatrix();
-            glTranslatef(0, 0, -7.7);
-            glRotatef(90.0, -1, 0, 0);
-            glRotatef(90.0, 0, 1, 0);
-            gluCylinder(quadratic, 0.25, 0.25, 4.5, 10, 10);
+            glColor4ub(255,255,255,255);
+                glTranslatef(2.35,13,2.35);
+                glRotated(45,0,1,0);
+                glScaled(2,2,0.35);
+                glutWireCube(1);
         glPopMatrix();
 
-    // Tubos Superiores
-
-        // Tubo izquierdo
+        // Aro de la canasta
         glPushMatrix();
-            // glTranslatef(0, 0, -7.7);
-            glRotatef(90.0, -1, 0, 0);
-            glRotatef(45.0, 0, 1, 0);
-            gluCylinder(quadratic, 0.25, 0.25, 4.5, 10, 10);
+                glColor4ub(255,165,0,255);
+                glTranslatef(3.2,12,3.2);
+                glRotated(90,1,0,0);
+                gluCylinder(quadratic, 1, 1, 0.2, 10, 10);
         glPopMatrix();
-        
-        // // Tubo derecho
-        // glPushMatrix();
-        //     glTranslatef(0, 0, -7.7);
-        //     glRotatef(90.0, -1, 0, 0);
-        //     glRotatef(90.0, 0, 1, 0);
-        //     gluCylinder(quadratic, 0.25, 0.25, 4.5, 10, 10);
-        // glPopMatrix();
+
+        // Red de la canasta
+        glPushMatrix();
+                glColor4ub(255,255,255,255);
+                glTranslatef(3.2,12,3.2);
+                glRotated(90,1,0,0);
+                gluQuadricDrawStyle(quadratic, GLU_LINE);
+                gluCylinder(quadratic, 1, 0.6, 1.5, 10, 10);
+        glPopMatrix();
+
+        // Pelota
+        glPushMatrix();
+            glTranslatef(5,15,5);
+            glColor4ub(255,165,0,255);
+            gluQuadricDrawStyle(quadratic, GLU_FILL);
+            gluSphere(quadratic,0.8,10,10);
+
+            glColor4ub(0,0,0,255);
+            gluQuadricDrawStyle(quadratic, GLU_LINE);
+            gluSphere(quadratic,0.8,10,10);
+        glPopMatrix();
 
 
-glPopMatrix();
+    glPopMatrix();
 
     glutSwapBuffers();
 }
@@ -337,7 +251,7 @@ void ajusta(int ancho, int alto)
     glClearColor(1.0, 1.0, 1.0, 0.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    GLfloat PosDireccional[] = {0.0, 8.0, -2.0, 0.0};
+    GLfloat PosDireccional[] = {8.0, 8.0, 8.0, 0.0};
     glLightfv(GL_LIGHT0, GL_POSITION, PosDireccional);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
@@ -361,7 +275,6 @@ int main(int argc, char **argv)
     glutReshapeFunc(ajusta);
     glutKeyboardFunc(teclado);
     glutSpecialFunc(rotar);
-    glutTimerFunc(2, animaT, 0);
     glutMainLoop();
 
     return 0;
