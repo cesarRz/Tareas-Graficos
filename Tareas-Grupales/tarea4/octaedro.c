@@ -256,7 +256,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // GLU DEPTH es el z-buffer
     glutInitWindowSize(700, 700);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Armado de un cubo");
+    glutCreateWindow("Octaedro");
     glutDisplayFunc(dibuja);
     glutReshapeFunc(ajusta);
     glutKeyboardFunc(teclado);
