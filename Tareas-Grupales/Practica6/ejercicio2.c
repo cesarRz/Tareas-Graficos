@@ -170,7 +170,7 @@ void dibuja_circulo(GLfloat base_x, GLfloat base_y, GLfloat color[4]){
             GLfloat emision_verde[] = {0,1,0,1};
             
             glMaterialfv(GL_FRONT, GL_EMISSION, emision_verde);
-            glMaterialfv(GL_FRONT, GL_SHININESS, 50);
+            glMaterialf(GL_FRONT, GL_SHININESS, 50);
         }
         
 
